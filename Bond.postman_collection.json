@@ -2,6 +2,7 @@
 	"info": {
 		"_postman_id": "cafcba0f-c56a-46d9-ac66-42530e7319a0",
 		"name": "Bond",
+		"description": "Unofficial APIs docs for BOND. This is a collection of what I've dug up so far on using Charles. Obligatory Use at your own risk.\n\nTo send any commands to the BOND, you must get a token from `login`, BOND hub id from `bonds`, and fan/device id from `cloud_device` (List Fans and Capabilities).\n\nYou can store the JWT `key` and reuse it for future API calls. If/when it expires, you can login again to get a new key.\n\nhttps://github.com/danmandle/bond",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
@@ -107,7 +108,7 @@
 			"response": []
 		},
 		{
-			"name": "List Fans and Capibilities",
+			"name": "List Fans and Capabilities",
 			"event": [
 				{
 					"listen": "test",
@@ -606,25 +607,25 @@
 	],
 	"variable": [
 		{
-			"id": "d3538cdc-cfd1-49ed-88d0-f1980d01baa5",
+			"id": "d01fd17f-29b4-43ad-8820-96dda5eccee4",
 			"key": "email",
 			"value": "web@dan.mandle.me",
 			"type": "string"
 		},
 		{
-			"id": "f94f0d36-1035-4ce2-9cb4-c54bd5fc3b44",
+			"id": "3f72bd51-2e7e-4ca3-9c2c-77444afa60ac",
 			"key": "password",
 			"value": "p9ER32J6I2P@cXl@",
 			"type": "string"
 		},
 		{
-			"id": "295d2e67-041c-411d-8722-17df4930da5c",
+			"id": "8195c8c1-dfd9-44c7-8fa4-d46f0fd0b712",
 			"key": "bondToken",
 			"value": "",
 			"type": "string"
 		},
 		{
-			"id": "6c0eed25-5b2c-4553-b1b3-c84dc3b6d347",
+			"id": "731760ba-6845-4cfc-8dab-5289fa16eb4a",
 			"key": "bondDeviceId",
 			"value": "",
 			"type": "string"
