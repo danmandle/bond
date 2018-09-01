@@ -1,0 +1,633 @@
+{
+	"info": {
+		"_postman_id": "cafcba0f-c56a-46d9-ac66-42530e7319a0",
+		"name": "Bond",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Login",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "5cab0b56-8b13-44a8-b077-cd7243183170",
+						"type": "text/javascript",
+						"exec": [
+							"var jsonData = pm.response.json();",
+							"",
+							"pm.environment.set(\"bondToken\", jsonData.user.bond_token);",
+							"pm.environment.set(\"ospreyKey\", jsonData.key);"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "text"
+						},
+						{
+							"key": "email",
+							"value": "{{email}}",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "https://appbond.com/api/v1/auth/login/",
+					"protocol": "https",
+					"host": [
+						"appbond",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"auth",
+						"login",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Bond Hubs",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "c4411857-c15c-4d2b-b99a-c13526751fdd",
+						"type": "text/javascript",
+						"exec": [
+							"var jsonData = pm.response.json();",
+							"",
+							"pm.environment.set(\"bondId\", jsonData.results[0].id);"
+						]
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "https://appbond.com/api/v1/bonds/",
+					"protocol": "https",
+					"host": [
+						"appbond",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"bonds",
+						""
+					]
+				},
+				"description": "This will include some very important details:\n##### user.token\nThis is your JWT token for your user. This will be used on the request to return your "
+			},
+			"response": []
+		},
+		{
+			"name": "List Fans and Capibilities",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "fea44bdb-1474-48e4-9066-0c7e2d7d9aa4",
+						"type": "text/javascript",
+						"exec": [
+							"var jsonData = pm.response.json();",
+							"",
+							"var fan = jsonData[0]",
+							"",
+							"pm.environment.set(\"fanId\", fan.id);",
+							"",
+							"console.log(`fanId ${fan.id} saved for ${fan.name}`)"
+						]
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{ospreyKey}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "https://osprey.appbond.com/api/v1/cloud_device/{{bondId}}/",
+					"protocol": "https",
+					"host": [
+						"osprey",
+						"appbond",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"cloud_device",
+						"{{bondId}}",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Toggle Fan Light",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "e7ac9574-25b3-41e1-92f5-ed9070151f59",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{ospreyKey}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "https://osprey.appbond.com/api/v1/cloud_device/{{bondId}}/{{fanId}}/TurnLightOn/",
+					"protocol": "https",
+					"host": [
+						"osprey",
+						"appbond",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"cloud_device",
+						"{{bondId}}",
+						"{{fanId}}",
+						"TurnLightOn",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Turn Fan Off",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "e7ac9574-25b3-41e1-92f5-ed9070151f59",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{ospreyKey}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "https://osprey.appbond.com/api/v1/cloud_device/{{bondId}}/{{fanId}}/TurnOff/",
+					"protocol": "https",
+					"host": [
+						"osprey",
+						"appbond",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"cloud_device",
+						"{{bondId}}",
+						"{{fanId}}",
+						"TurnOff",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Set Fan Speed",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "e7ac9574-25b3-41e1-92f5-ed9070151f59",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{ospreyKey}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"argument\":\"2\"}"
+				},
+				"url": {
+					"raw": "https://osprey.appbond.com/api/v1/cloud_device/{{bondId}}/{{fanId}}/SetSpeed/",
+					"protocol": "https",
+					"host": [
+						"osprey",
+						"appbond",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"cloud_device",
+						"{{bondId}}",
+						"{{fanId}}",
+						"SetSpeed",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Direction: Down",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "e7ac9574-25b3-41e1-92f5-ed9070151f59",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{ospreyKey}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"argument\":\"1\"}"
+				},
+				"url": {
+					"raw": "https://osprey.appbond.com/api/v1/cloud_device/{{bondId}}/{{fanId}}/SetDirection/",
+					"protocol": "https",
+					"host": [
+						"osprey",
+						"appbond",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"cloud_device",
+						"{{bondId}}",
+						"{{fanId}}",
+						"SetDirection",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Direction: Up",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "e7ac9574-25b3-41e1-92f5-ed9070151f59",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{ospreyKey}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"argument\":\"-1\"}"
+				},
+				"url": {
+					"raw": "https://osprey.appbond.com/api/v1/cloud_device/{{bondId}}/{{fanId}}/SetDirection/",
+					"protocol": "https",
+					"host": [
+						"osprey",
+						"appbond",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"cloud_device",
+						"{{bondId}}",
+						"{{fanId}}",
+						"SetDirection",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Increase Brightness",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "e7ac9574-25b3-41e1-92f5-ed9070151f59",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{ospreyKey}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{}"
+				},
+				"url": {
+					"raw": "https://osprey.appbond.com/api/v1/cloud_device/{{bondId}}/{{fanId}}/IncreaseBrightness/",
+					"protocol": "https",
+					"host": [
+						"osprey",
+						"appbond",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"cloud_device",
+						"{{bondId}}",
+						"{{fanId}}",
+						"IncreaseBrightness",
+						""
+					]
+				},
+				"description": "#### Note about increase/decrease brightness\nIn the app when you tap to increase or decrease light brightness it POSTs to `IncreaseBrightness` then immediately POSTs a `StopDimming`."
+			},
+			"response": []
+		},
+		{
+			"name": "Decrease Brightness",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "e7ac9574-25b3-41e1-92f5-ed9070151f59",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{ospreyKey}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{}"
+				},
+				"url": {
+					"raw": "https://osprey.appbond.com/api/v1/cloud_device/{{bondId}}/{{fanId}}/DecreaseBrightness/",
+					"protocol": "https",
+					"host": [
+						"osprey",
+						"appbond",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"cloud_device",
+						"{{bondId}}",
+						"{{fanId}}",
+						"DecreaseBrightness",
+						""
+					]
+				},
+				"description": "#### Note about increase/decrease brightness\nIn the app when you tap to increase or decrease light brightness it POSTs to `IncreaseBrightness` then immediately POSTs a `StopDimming`."
+			},
+			"response": []
+		},
+		{
+			"name": "Stop Dimming",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "e7ac9574-25b3-41e1-92f5-ed9070151f59",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{ospreyKey}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"argument\":\"null\"}"
+				},
+				"url": {
+					"raw": "https://osprey.appbond.com/api/v1/cloud_device/{{bondId}}/{{fanId}}/StopDimming/",
+					"protocol": "https",
+					"host": [
+						"osprey",
+						"appbond",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"cloud_device",
+						"{{bondId}}",
+						"{{fanId}}",
+						"StopDimming",
+						""
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{bondToken}}",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "44cf181a-48b1-49dd-b5ec-3c155502207b",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "03458add-22ce-4c87-81fe-3b2d5bcce016",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"id": "d3538cdc-cfd1-49ed-88d0-f1980d01baa5",
+			"key": "email",
+			"value": "web@dan.mandle.me",
+			"type": "string"
+		},
+		{
+			"id": "f94f0d36-1035-4ce2-9cb4-c54bd5fc3b44",
+			"key": "password",
+			"value": "p9ER32J6I2P@cXl@",
+			"type": "string"
+		},
+		{
+			"id": "295d2e67-041c-411d-8722-17df4930da5c",
+			"key": "bondToken",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"id": "6c0eed25-5b2c-4553-b1b3-c84dc3b6d347",
+			"key": "bondDeviceId",
+			"value": "",
+			"type": "string"
+		}
+	]
+}
