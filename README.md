@@ -1,4 +1,4 @@
-#UPDATE: BOND now has offical documentation for the local API for v2: [http://docs-local.appbond.com](http://docs-local.appbond.com)
+# UPDATE: BOND now has offical documentation for the local API for v2: [http://docs-local.appbond.com](http://docs-local.appbond.com)
 
 # BOND, an unofficial API documentation
 The [BOND](https://amzn.to/2NdWPpj) lets you connect your existing ceiling fans to your smart devices. Activate, control fan speeds, and turn on lights – all from your phone, tablet, Amazon Echo, or Google Home.
